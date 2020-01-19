@@ -1,23 +1,23 @@
 {
   "name": "nashcash-wallet-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "[![Build Status](https://travis-ci.org/nashcash/nashcash-wallet-backend-js.svg?branch=master)](https://travis-ci.org/nashcash/nashcash-wallet-backend-js)",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "scripts": {
     "prepublish": "npm run-script build",
-    "build": "./node_modules/.bin/tsc",
+    "build": "tsc",
     "test": "npm run-script build && node dist/tests/tests.js",
     "test-all": "npm run-script build && node dist/tests/tests.js --do-performance-tests",
-    "style": "./node_modules/.bin/tslint -c tslint.json 'lib/**/*.ts'",
-    "docs": "./node_modules/.bin/typedoc --options ./typedoc.js ./lib/; touch docs/.nojekyll",
+    "style": "tslint -c tslint.json 'lib/**/*.ts'",
+    "docs": "typedoc --options ./typedoc.js ./lib/; touch docs/.nojekyll",
     "prepare": "npm run-script build"
   },
   "files": [
     "dist/lib/*"
   ],
   "keywords": [],
-  "author": "",
+  "author": "LeinAd",
   "license": "AGPL-3.0",
   "dependencies": {
     "lodash": "^4.17.15",
@@ -50,5 +50,13 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nash-Cash/wallet-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nash-Cash/wallet-backend/issues"
+  },
+  "homepage": "https://github.com/Nash-Cash/wallet-backend#readme"
 }
