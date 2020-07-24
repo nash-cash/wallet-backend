@@ -70,7 +70,7 @@ class Config {
          * something like 2 because it makes for pretty resulting fees
          * - 5 NaCa vs 5.12 NaCa. You can read this as.. the fee per chunk
          * is 500 atomic units. The fee per byte is 500 / chunk size. */
-        this.minimumFeePerByte = 500.00 / this.feePerByteChunkSize;
+        this.minimumFeePerByte = 2500000 / this.feePerByteChunkSize;
         /**
          * Mapping of height to mixin maximum and mixin minimum
          */
@@ -80,7 +80,7 @@ class Config {
             /* At height of 620000, static mixin of 7 */
             new MixinLimits_1.MixinLimit(507300, 5),
             /* At height of 800000, static mixin of 3 */
-            new MixinLimits_1.MixinLimit(800000, 3),
+            new MixinLimits_1.MixinLimit(705000, 7),
         ], 3 /* Default mixin of 3 before block 440,000 */);
         /**
          * The length of a standard address for your coin
