@@ -1,90 +1,68 @@
 {
-  "_from": "nashcash-wallet-backend",
-  "_id": "nashcash-wallet-backend@2.0.2",
-  "_inBundle": false,
-  "_integrity": "sha512-C2z06oGM924xhNjYnZ2fFkEdvklfFHEohEGr2bmSoDPzGcMKaxLSm2NkY1/fKXw05fZ2mFJN8Td3sbXLpOqbhQ==",
-  "_location": "/nashcash-wallet-backend",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "nashcash-wallet-backend",
-    "name": "nashcash-wallet-backend",
-    "escapedName": "nashcash-wallet-backend",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/nashcash-wallet-backend/-/nashcash-wallet-backend-2.0.2.tgz",
-  "_shasum": "5cdc692860e865b8eb7cb280a580d9bddf01fe03",
-  "_spec": "nashcash-wallet-backend",
-  "_where": "D:\\nashcashproject\\actuall",
-  "author": {
-    "name": "LeinAd"
-  },
-  "bugs": {
-    "url": "https://github.com/Nash-Cash/wallet-backend/issues"
-  },
-  "bundleDependencies": false,
-  "dependencies": {
-    "lodash": "^4.17.15",
-    "object-sizeof": "^1.5.2",
-    "pbkdf2": "^3.0.17",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.8",
-    "nashcash-utils": "^2.0.2",
-    "typescript": "^3.7.2"
-  },
-  "deprecated": false,
-  "description": "NashCash-Wallet-Backend ..)",
-  "devDependencies": {
-    "@types/lodash": "^4.14.149",
-    "@types/node": "^12.12.14",
-    "@types/pbkdf2": "^3.0.0",
-    "@types/request-promise-native": "^1.0.17",
-    "colors": "^1.4.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "tslint": "^5.20.1",
-    "typedoc": "^0.15.3",
-    "typedoc-plugin-no-inherit": "^1.1.10"
+  "name": "nashcash-wallet-backend",
+  "version": "2.0.5",
+  "description": "![image](https://user-images.githubusercontent.com/34389545/35821974-62e0e25c-0a70-11e8-87dd-2cfffeb6ed47.png)",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
+  "scripts": {
+    "prepublish": "npm run-script build",
+    "build": "tsc",
+    "test": "npm run-script build && node dist/tests/tests.js",
+    "test-all": "npm run-script build && node dist/tests/tests.js --do-performance-tests",
+    "style": "tslint -c tslint.json 'lib/**/*.ts'",
+    "docs": "typedoc --options ./typedoc.js ./lib/; touch docs/.nojekyll",
+    "prepare": "npm run-script build"
   },
   "files": [
     "dist/lib/*"
   ],
-  "homepage": "https://github.com/Nash-Cash/wallet-backend#readme",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "keywords": [],
+  "author": "",
   "license": "AGPL-3.0",
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "object-sizeof": "^1.6.0",
+    "pbkdf2": "^3.0.17",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8",
+    "nashcash-utils": "^2.0.5",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^13.11.1",
+    "@types/pbkdf2": "^3.0.0",
+    "@types/request-promise-native": "^1.0.17",
+    "colors": "^1.4.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.1.3",
+    "tslint": "^6.1.1",
+    "typedoc": "^0.17.4",
+    "typedoc-plugin-no-inherit": "^1.1.10"
+  },
   "lint-staged": {
     "**/*.{ts}": [
       "./node_modules/tslint/bin/tslint -c tslint.json --fix",
       "git add"
     ]
   },
-  "main": "dist/lib/index.js",
-  "name": "nashcash-wallet-backend",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "lib": "lib",
+    "test": "tests"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Nash-Cash/wallet-backend.git"
   },
-  "scripts": {
-    "build": "tsc",
-    "docs": "typedoc --options ./typedoc.js ./lib/; touch docs/.nojekyll",
-    "prepare": "npm run-script build",
-    "prepublish": "npm run-script build",
-    "style": "tslint -c tslint.json 'lib/**/*.ts'",
-    "test": "npm run-script build && node dist/tests/tests.js",
-    "test-all": "npm run-script build && node dist/tests/tests.js --do-performance-tests"
+  "bugs": {
+    "url": "https://github.com/Nash-Cash/wallet-backend/issues"
   },
-  "types": "dist/lib/index.d.ts",
-  "version": "2.0.2"
+  "homepage": "https://github.com/Nash-Cash/wallet-backend#readme"
 }
