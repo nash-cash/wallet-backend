@@ -6,13 +6,13 @@ import { MixinLimits } from './MixinLimits';
  */
 export interface IConfig {
     /**
-     * The amount of decimal places your coin has, e.g. TurtleCoin has two
+     * The amount of decimal places your coin has, e.g. nashcash has two
      * decimals
      */
     decimalPlaces?: number;
     /**
      * The address prefix your coin uses - you can find this in CryptoNoteConfig.h.
-     * In TurtleCoin, this converts to TRTL
+     * In nashcash, this converts to NaCa
      */
     addressPrefix?: number;
     /**
@@ -42,7 +42,7 @@ export interface IConfig {
      */
     blocksPerTick?: number;
     /**
-     * Your coins 'ticker', generally used to refer to the coin, i.e. 123 TRTL
+     * Your coins 'ticker', generally used to refer to the coin, i.e. 123 NaCa
      */
     ticker?: string;
     /**
@@ -149,13 +149,13 @@ export interface IConfig {
  */
 export declare class Config implements IConfig {
     /**
-     * The amount of decimal places your coin has, e.g. TurtleCoin has two
+     * The amount of decimal places your coin has, e.g. nashcash has two
      * decimals
      */
     decimalPlaces: number;
     /**
      * The address prefix your coin uses - you can find this in CryptoNoteConfig.h.
-     * In TurtleCoin, this converts to TRTL
+     * In nashcash, this converts to NaCa
      */
     addressPrefix: number;
     /**
@@ -185,7 +185,7 @@ export declare class Config implements IConfig {
      */
     blocksPerTick: number;
     /**
-     * Your coins 'ticker', generally used to refer to the coin, i.e. 123 TRTL
+     * Your coins 'ticker', generally used to refer to the coin, i.e. 123 NaCa
      */
     ticker: string;
     /**

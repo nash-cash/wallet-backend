@@ -67,7 +67,7 @@ const WB = require('nashcash-wallet-backend');
 import { WalletBackend, Daemon, IDaemon } from 'nashcash-wallet-backend';
 
 (async () => {
-    const daemon: IDaemon = new Daemon('127.0.0.1', 11898);
+    const daemon: IDaemon = new Daemon('127.0.0.1', 24888);
 
     /* OR
     const daemon: IDaemon = new Daemon('api.nashcash.net', 443);

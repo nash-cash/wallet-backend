@@ -42,7 +42,7 @@ export declare function getCurrentTimestampAdjusted(blockTargetTime?: number): n
 export declare function isInputUnlocked(unlockTime: number, currentHeight: number): boolean;
 /**
  * Takes an amount in atomic units and pretty prints it.
- * Example: 12345607 -> 123,456.07 TRTL
+ * Example: 12345607 -> 123,456.07 NaCa
  */
 export declare function prettyPrintAmount(amount: number, config?: IConfig): string;
 /**

@@ -1,4 +1,4 @@
-import { CreatedTransaction } from 'turtlecoin-utils';
+import { CreatedTransaction } from 'nashcash-utils';
 import { WalletError } from './WalletError';
 import { TransactionInputJSON, TransactionJSON, UnconfirmedInputJSON } from './JsonSerialization';
 /**

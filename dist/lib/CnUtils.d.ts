@@ -1,4 +1,4 @@
-import { CryptoNote } from 'turtlecoin-utils';
+import { CryptoNote } from 'nashcash-utils';
 import { Config } from './Config';
 /**
  * This needs to be a function, rather than a default export, since our config

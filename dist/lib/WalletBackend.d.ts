@@ -231,7 +231,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const WB = require('turtlecoin-wallet-backend');
+     * const WB = require('nashcash-wallet-backend');
      *
      * const daemon = new WB.Daemon('127.0.0.1', 11898);
      *
@@ -256,7 +256,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const WB = require('turtlecoin-wallet-backend');
+     * const WB = require('nashcash-wallet-backend');
      *
      * const daemon = new WB.Daemon('127.0.0.1', 11898);
      * const data = 'ENCRYPTED_WALLET_STRING';
@@ -274,13 +274,13 @@ export declare class WalletBackend extends EventEmitter {
     static openWalletFromEncryptedString(deamon: IDaemon, data: string, password: string, config?: IConfig): [WalletBackend, undefined] | [undefined, WalletError];
     /**
      * Loads a wallet from a JSON encoded string. For the correct format for
-     * the JSON to use, see https://github.com/turtlecoin/wallet-file-interaction
+     * the JSON to use, see https://github.com/nashcash/wallet-file-interaction
      *
      * You can obtain this JSON using [[toJSONString]].
      *
      * Example:
      * ```javascript
-     * const WB = require('turtlecoin-wallet-backend');
+     * const WB = require('nashcash-wallet-backend');
      *
      * const daemon = new WB.Daemon('127.0.0.1', 11898);
      *
@@ -304,7 +304,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const WB = require('turtlecoin-wallet-backend');
+     * const WB = require('nashcash-wallet-backend');
      *
      * const daemon = new WB.Daemon('127.0.0.1', 11898);
      *
@@ -334,7 +334,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const WB = require('turtlecoin-wallet-backend');
+     * const WB = require('nashcash-wallet-backend');
      *
      * const daemon = new WB.Daemon('127.0.0.1', 11898);
      *
@@ -369,13 +369,13 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const WB = require('turtlecoin-wallet-backend');
+     * const WB = require('nashcash-wallet-backend');
      *
      * const daemon = new WB.Daemon('127.0.0.1', 11898);
      *
      * const privateViewKey = 'ce4c27d5b135dc5310669b35e53efc9d50d92438f00c76442adf8c85f73f1a01';
      *
-     * const address = 'TRTLv2Fyavy8CXG8BPEbNeCHFZ1fuDCYCZ3vW5H5LXN4K2M2MHUpTENip9bbavpHvvPwb4NDkBWrNgURAd5DB38FHXWZyoBh4wW';
+     * const address = 'NaCav2Fyavy8CXG8BPEbNeCHFZ1fuDCYCZ3vW5H5LXN4K2M2MHUpTENip9bbavpHvvPwb4NDkBWrNgURAd5DB38FHXWZyoBh4wW';
      *
      * const [wallet, err] = WB.WalletBackend.importViewWallet(daemon, 100000, privateViewKey, address);
      *
@@ -399,7 +399,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const WB = require('turtlecoin-wallet-backend');
+     * const WB = require('nashcash-wallet-backend');
      *
      * const daemon = new WB.Daemon('127.0.0.1', 11898);
      *
@@ -574,7 +574,7 @@ export declare class WalletBackend extends EventEmitter {
     rewind(scanHeight?: number): Promise<void>;
     /**
      * Adds a subwallet to the wallet container. Must not be used on a view
-     * only wallet. For more information on subwallets, see https://docs.turtlecoin.lol/developer/subwallets
+     * only wallet. For more information on subwallets, see https://docs.nashcash.lol/developer/subwallets
      *
      * Example:
      * ```javascript
@@ -590,7 +590,7 @@ export declare class WalletBackend extends EventEmitter {
     addSubWallet(): ([string, undefined] | [undefined, WalletError]);
     /**
      * Imports a subwallet to the wallet container. Must not be used on a view
-     * only wallet. For more information on subwallets, see https://docs.turtlecoin.lol/developer/subwallets
+     * only wallet. For more information on subwallets, see https://docs.nashcash.lol/developer/subwallets
      *
      * Example:
      * ```javascript
@@ -614,7 +614,7 @@ export declare class WalletBackend extends EventEmitter {
     importSubWallet(privateSpendKey: string, scanHeight?: number): Promise<([string, undefined] | [undefined, WalletError])>;
     /**
      * Imports a view only subwallet to the wallet container. Must not be used
-     * on a non view wallet. For more information on subwallets, see https://docs.turtlecoin.lol/developer/subwallets
+     * on a non view wallet. For more information on subwallets, see https://docs.nashcash.lol/developer/subwallets
      *
      * Example:
      * ```javascript
@@ -643,7 +643,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const error = wallet.deleteSubWallet('TRTLv2txGW8daTunmAVV6dauJgEv1LezM2Hse7EUD5c11yKHsNDrzQ5UWNRmu2ToQVhDcr82ZPVXy4mU5D7w9RmfR747KeXD3UF');
+     * const error = wallet.deleteSubWallet('NaCav2txGW8daTunmAVV6dauJgEv1LezM2Hse7EUD5c11yKHsNDrzQ5UWNRmu2ToQVhDcr82ZPVXy4mU5D7w9RmfR747KeXD3UF');
      *
      * if (error) {
      *      console.log(`Failed to delete subwallet: ${error.toString()}`);
@@ -863,7 +863,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const [publicSpendKey, privateSpendKey, err] = wallet.getSpendKeys('TRTLxyz...');
+     * const [publicSpendKey, privateSpendKey, err] = wallet.getSpendKeys('NaCaxyz...');
      *
      * if (err) {
      *      console.log('Failed to get spend keys for address: ' + err.toString());
@@ -904,7 +904,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const [seed, err] = wallet.getMnemonicSeedForAddress('TRTLxyz...');
+     * const [seed, err] = wallet.getMnemonicSeedForAddress('NaCaxyz...');
      *
      * if (err) {
      *      console.log('Address does not belong to a deterministic wallet: ' + err.toString());
@@ -1037,7 +1037,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const result = await wallet.sendFusionTransactionAdvanced(3, undefined, 'TRTLxyz..');
+     * const result = await wallet.sendFusionTransactionAdvanced(3, undefined, 'NaCaxyz..');
      *
      * if (result.success) {
      *      console.log(`Sent transaction, hash ${result.transactionHash}, fee ${WB.prettyPrintAmount(result.fee)}`);
@@ -1064,7 +1064,7 @@ export declare class WalletBackend extends EventEmitter {
      *
      * Example:
      * ```javascript
-     * const result = await wallet.sendTransactionBasic('TRTLxyz...', 1234);
+     * const result = await wallet.sendTransactionBasic('NaCaxyz...', 1234);
      *
      * if (result.success) {
      *      console.log(`Sent transaction, hash ${result.transactionHash}, fee ${WB.prettyPrintAmount(result.fee)}`);
@@ -1089,8 +1089,8 @@ export declare class WalletBackend extends EventEmitter {
      * Example:
      * ```javascript
      * const destinations = [
-     *      ['TRTLxyz...', 1000],
-     *      ['TRTLzyx...', 10000],
+     *      ['NaCaxyz...', 1000],
+     *      ['NaCazyx...', 10000],
      * ];
      *
      * const result = await wallet.sendTransactionAdvanced(
@@ -1142,8 +1142,8 @@ export declare class WalletBackend extends EventEmitter {
      * Example:
      * ```javascript
      * const destinations = [
-     *      ['TRTLxyz...', 1000],
-     *      ['TRTLzyx...', 10000],
+     *      ['NaCaxyz...', 1000],
+     *      ['NaCazyx...', 10000],
      * ];
      *
      * const creation = await wallet.sendTransactionAdvanced(
@@ -1185,8 +1185,8 @@ export declare class WalletBackend extends EventEmitter {
      * Example:
      * ```javascript
      * const destinations = [
-     *      ['TRTLxyz...', 1000],
-     *      ['TRTLzyx...', 10000],
+     *      ['NaCaxyz...', 1000],
+     *      ['NaCazyx...', 10000],
      * ];
      *
      * const creation = await wallet.sendTransactionAdvanced(
@@ -1228,8 +1228,8 @@ export declare class WalletBackend extends EventEmitter {
      * Example:
      * ```javascript
      * const destinations = [
-     *      ['TRTLxyz...', 1000],
-     *      ['TRTLzyx...', 10000],
+     *      ['NaCaxyz...', 1000],
+     *      ['NaCazyx...', 10000],
      * ];
      *
      * const creation = await wallet.sendTransactionAdvanced(
