@@ -20,7 +20,6 @@ import { addressToKeys, getCurrentTimestampAdjusted, isInputUnlocked } from './U
 import { SUCCESS, WalletError, WalletErrorCode } from './WalletError';
 
 import * as _ from 'lodash';
-import { Address } from 'nashcash-utils';
 
 /**
  * Stores each subwallet, along with transactions and public spend keys
@@ -126,16 +125,16 @@ export class SubWallets {
             timestamp = getCurrentTimestampAdjusted(this.config.blockTargetTime);
         }
 
-        const decodedAddress = Address.fromAddress(address, config.addressPrefix)
+        const publicKeys = CryptoUtils(config).decodeAddress(address);
 
-        this.publicSpendKeys.push(decodedAddress.spend.publicKey);
+        this.publicSpendKeys.push(publicKeys.publicSpendKey);
 
         const subWallet = new SubWallet(
-            config, address, scanHeight, timestamp, decodedAddress.spend.publicKey,
+            config, address, scanHeight, timestamp, publicKeys.publicSpendKey,
             privateSpendKey,
         );
 
-        this.subWallets.set(decodedAddress.spend.publicKey, subWallet);
+        this.subWallets.set(publicKeys.publicSpendKey, subWallet);
     }
 
     public initKeyImageMap(): void {
@@ -441,8 +440,8 @@ export class SubWallets {
     /**
      * Get all [public, private] spend keys in a container
      */
-    public getAllSpendKeys(): [string, string][] {
-        const keys: [string, string][] = [];
+    public getAllSpendKeys(): Array<[string, string]> {
+        const keys: Array<[string, string]> = [];
 
         for (const [publicKey, subWallet] of this.subWallets) {
             keys.push([publicKey, subWallet.getPrivateSpendKey()]);
@@ -589,7 +588,7 @@ export class SubWallets {
 
         /* Push into base 10 buckets. Smallest amount buckets will come first, and
          * largest amounts within those buckets come first */
-        let buckets: Map<number, TxInputAndOwner[]> = new Map();
+        let buckets: Map<number, Array<TxInputAndOwner>> = new Map();
 
         for (const input of availableInputs) {
 
@@ -609,7 +608,7 @@ export class SubWallets {
 
         /* ES6 maps are sorted by insertion order, so we create a new map, sorting
          * the buckets we want first in the resulting map, first. */
-        buckets = new Map<number, TxInputAndOwner[]>([...buckets].sort((a, b) => {
+        buckets = new Map<number, Array<TxInputAndOwner>>([...buckets].sort((a, b) => {
             return a[0] > b[0] ? 1 : -1;
         }));
 
@@ -793,73 +792,79 @@ export class SubWallets {
         this.subWallets.forEach((subWallet) => subWallet.initAfterLoad(config));
     }
 
-    public async addSubWallet(scanHeight: number): Promise<([string, undefined] | [undefined, WalletError])> {
+    public addSubWallet(scanHeight: number): ([string, undefined] | [undefined, WalletError]) {
         if (this.isViewWallet) {
             /* Adding a random subwallet to a view wallet makes no sense. */
             return [undefined, new WalletError(WalletErrorCode.ILLEGAL_VIEW_WALLET_OPERATION)];
         }
 
-        /* Make a random address to get a new pub/priv spend key pair */
-        const address = Address.fromEntropy(undefined, undefined, this.config.addressPrefix);
+        const keys = CryptoUtils(this.config).createNewAddress();
 
-        if (this.publicSpendKeys.includes(address.spend.publicKey)) {
-            return [undefined, new WalletError(WalletErrorCode.SUBWALLET_ALREADY_EXISTS)];
-        }
-
-        this.publicSpendKeys.push(address.spend.publicKey);
-
-        const isPrimaryAddress: boolean = false;
-
-        /* Create the actual address using the shared private view key and the new
-         * private spend */
-        const newAddress = Address.fromKeys(address.spend.privateKey, this.privateViewKey, this.config.addressPrefix).toString();
-
-        const subWallet = new SubWallet(
-            this.config, newAddress, scanHeight, 0, address.spend.publicKey,
-            address.spend.privateKey, false,
-        );
-
-        this.subWallets.set(address.spend.publicKey, subWallet);
-
-        return [newAddress, undefined];
-    }
-
-    public async importSubWallet(
-        privateSpendKey: string,
-        scanHeight: number): Promise<([string, undefined] | [undefined, WalletError])> {
-
-        if (this.isViewWallet) {
-            /* Adding a random subwallet to a view wallet makes no sense. */
-            return [undefined, new WalletError(WalletErrorCode.ILLEGAL_VIEW_WALLET_OPERATION)];
-        }
-
-        const publicSpendKey = await CryptoUtils(this.config).privateKeyToPublicKey(privateSpendKey);
+        const privateSpendKey = keys.spend.privateKey;
+        const publicSpendKey = keys.spend.publicKey;
 
         if (this.publicSpendKeys.includes(publicSpendKey)) {
             return [undefined, new WalletError(WalletErrorCode.SUBWALLET_ALREADY_EXISTS)];
         }
 
-        const publicViewKey = await CryptoUtils(this.config).privateKeyToPublicKey(this.privateViewKey);
+        const publicViewKey = CryptoUtils(this.config).privateKeyToPublicKey(this.privateViewKey);
 
-        const address = Address.fromPublicKeys(publicSpendKey, publicViewKey, undefined, this.config.addressPrefix).toString();
+        const newAddress = CryptoUtils(this.config).encodeAddress(
+            publicViewKey, publicSpendKey,
+        );
 
         this.publicSpendKeys.push(publicSpendKey);
 
         const isPrimaryAddress: boolean = false;
 
         const subWallet = new SubWallet(
-            this.config, address, scanHeight, 0, publicSpendKey,
+            this.config, newAddress, scanHeight, 0, publicSpendKey,
             privateSpendKey, false,
         );
 
         this.subWallets.set(publicSpendKey, subWallet);
 
-        return [address, undefined];
+        return [newAddress, undefined];
     }
 
-    public async importViewSubWallet(
+    public importSubWallet(
+        privateSpendKey: string,
+        scanHeight: number): ([string, undefined] | [undefined, WalletError]) {
+
+        if (this.isViewWallet) {
+            /* Adding a random subwallet to a view wallet makes no sense. */
+            return [undefined, new WalletError(WalletErrorCode.ILLEGAL_VIEW_WALLET_OPERATION)];
+        }
+
+        const publicSpendKey = CryptoUtils(this.config).privateKeyToPublicKey(privateSpendKey);
+
+        if (this.publicSpendKeys.includes(publicSpendKey)) {
+            return [undefined, new WalletError(WalletErrorCode.SUBWALLET_ALREADY_EXISTS)];
+        }
+
+        const publicViewKey = CryptoUtils(this.config).privateKeyToPublicKey(this.privateViewKey);
+
+        const newAddress = CryptoUtils(this.config).encodeAddress(
+            publicViewKey, publicSpendKey,
+        );
+
+        this.publicSpendKeys.push(publicSpendKey);
+
+        const isPrimaryAddress: boolean = false;
+
+        const subWallet = new SubWallet(
+            this.config, newAddress, scanHeight, 0, publicSpendKey,
+            privateSpendKey, false,
+        );
+
+        this.subWallets.set(publicSpendKey, subWallet);
+
+        return [newAddress, undefined];
+    }
+
+    public importViewSubWallet(
         publicSpendKey: string,
-        scanHeight: number): Promise<([string, undefined] | [undefined, WalletError])> {
+        scanHeight: number): ([string, undefined] | [undefined, WalletError]) {
 
         if (!this.isViewWallet) {
             /* Adding a random subwallet to a view wallet makes no sense. */
@@ -870,22 +875,24 @@ export class SubWallets {
             return [undefined, new WalletError(WalletErrorCode.SUBWALLET_ALREADY_EXISTS)];
         }
 
-        const publicViewKey = await CryptoUtils(this.config).privateKeyToPublicKey(this.privateViewKey);
+        const publicViewKey = CryptoUtils(this.config).privateKeyToPublicKey(this.privateViewKey);
 
-        const address = Address.fromPublicKeys(publicSpendKey, publicViewKey, undefined, this.config.addressPrefix).toString();
+        const newAddress = CryptoUtils(this.config).encodeAddress(
+            publicViewKey, publicSpendKey,
+        );
 
         this.publicSpendKeys.push(publicSpendKey);
 
         const isPrimaryAddress: boolean = false;
 
         const subWallet = new SubWallet(
-            this.config, address, scanHeight, 0, publicSpendKey,
+            this.config, newAddress, scanHeight, 0, publicSpendKey,
             undefined, false,
         );
 
         this.subWallets.set(publicSpendKey, subWallet);
 
-        return [address, undefined];
+        return [newAddress, undefined];
     }
 
     public deleteSubWallet(address: string): WalletError {
@@ -931,7 +938,7 @@ export class SubWallets {
     }
 
     private filterTransactions(txs: Transaction[], address?: string, includeFusions: boolean = true) {
-        const filters: ((tx: Transaction) => boolean)[] = [];
+        const filters: Array<(tx: Transaction) => boolean> = [];
 
         if (address) {
             const [, publicSpendKey] = addressToKeys(address, this.config);

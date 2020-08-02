@@ -2,7 +2,7 @@
 //
 // Please see the included LICENSE file for more information.
 
-import { Transaction as CreatedTransaction } from 'nashcash-utils';
+import { CreatedTransaction } from 'turtlecoin-utils';
 
 import { WalletError } from './WalletError';
 
@@ -48,11 +48,12 @@ export class Block {
     public readonly blockTimestamp: number;
 
     constructor(
+        coinbaseTransaction: RawCoinbaseTransaction,
         transactions: RawTransaction[],
         blockHeight: number,
         blockHash: string,
-        blockTimestamp: number,
-        coinbaseTransaction?: RawCoinbaseTransaction) {
+        blockTimestamp: number) {
+
         this.coinbaseTransaction = coinbaseTransaction;
         this.transactions = transactions;
         this.blockHeight = blockHeight;
@@ -509,10 +510,10 @@ export class TransactionData {
     public transactionsToAdd: Transaction[] = [];
 
     /* Mapping of public spend key to inputs */
-    public inputsToAdd: [string, TransactionInput][] = [];
+    public inputsToAdd: Array<[string, TransactionInput]> = [];
 
     /* Mapping of public spend key to key image */
-    public keyImagesToMarkSpent: [string, string][] = [];
+    public keyImagesToMarkSpent: Array<[string, string]> = [];
 }
 
 /**

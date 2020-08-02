@@ -3,7 +3,6 @@
 // Please see the included LICENSE file for more information.
 
 import * as _ from 'lodash';
-import { Address } from 'nashcash-utils';
 
 import { IConfig, Config, MergeConfig } from './Config';
 import { CryptoUtils} from './CnUtils';
@@ -74,9 +73,9 @@ export function isHex64(val: string): boolean {
 export function addressToKeys(address: string, config: IConfig = new Config()): [string, string] {
     const tempConfig: Config = MergeConfig(config);
 
-    const parsed = Address.fromAddress(address, tempConfig.addressPrefix);
+    const parsed = CryptoUtils(tempConfig).decodeAddress(address);
 
-    return [parsed.view.publicKey, parsed.spend.publicKey];
+    return [parsed.publicViewKey, parsed.publicSpendKey];
 }
 
 /**
@@ -299,7 +298,7 @@ export function isValidMnemonic(mnemonic: string, config: IConfig = new Config()
     }
 
     try {
-        Address.fromMnemonic(words.join(' '), undefined, tempConfig.addressPrefix);
+        CryptoUtils(tempConfig).createAddressFromMnemonic(words.join(' '));
         return [true, ''];
     } catch (err) {
         return [false, 'Mnemonic checksum word is invalid'];

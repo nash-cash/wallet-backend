@@ -205,13 +205,13 @@ export class Config implements IConfig {
      * The amount of decimal places your coin has, e.g. TurtleCoin has two
      * decimals
      */
-    public decimalPlaces: number = 2;
+    public decimalPlaces: number = 8;
 
     /**
      * The address prefix your coin uses - you can find this in CryptoNoteConfig.h.
      * In TurtleCoin, this converts to TRTL
      */
-    public addressPrefix: number = 3914525;
+    public addressPrefix: number = 0x5bc80;
 
     /**
      * Request timeout for daemon operations in milliseconds
@@ -221,7 +221,7 @@ export class Config implements IConfig {
     /**
      * The block time of your coin, in seconds
      */
-    public blockTargetTime: number = 30;
+    public blockTargetTime: number = 60;
 
     /**
      * How often to process blocks, in millseconds
@@ -248,7 +248,7 @@ export class Config implements IConfig {
     /**
      * Your coins 'ticker', generally used to refer to the coin, i.e. 123 TRTL
      */
-    public ticker: string = 'TRTL';
+    public ticker: string = 'NaCa';
 
     /**
      * Most people haven't mined any blocks, so lets not waste time scanning
@@ -271,7 +271,7 @@ export class Config implements IConfig {
      * something like 2 because it makes for pretty resulting fees
      * - 5 TRTL vs 5.12 TRTL. You can read this as.. the fee per chunk
      * is 500 atomic units. The fee per byte is 500 / chunk size. */
-    public minimumFeePerByte = 500.00 / this.feePerByteChunkSize;
+    public minimumFeePerByte = 2500000 / this.feePerByteChunkSize;
 
     /**
      * Mapping of height to mixin maximum and mixin minimum
@@ -280,24 +280,24 @@ export class Config implements IConfig {
         /* Height: 440,000, minMixin: 0, maxMixin: 100, defaultMixin: 3 */
         new MixinLimit(440000, 0, 100, 3),
 
-        /* At height of 620000, static mixin of 7 */
-        new MixinLimit(620000, 7),
+        /* At height of 507300, static mixin of 7 */
+        new MixinLimit(507300, 10),
 
-        /* At height of 800000, static mixin of 3 */
-        new MixinLimit(800000, 3),
+        /* At height of 705000, static mixin of 3 */
+        new MixinLimit(705000, 3),
     ], 3 /* Default mixin of 3 before block 440,000 */);
 
     /**
      * The length of a standard address for your coin
      */
-    public standardAddressLength: number = 99;
+    public standardAddressLength: number = 98;
 
     /* The length of an integrated address for your coin - It's the same as
        a normal address, but there is a paymentID included in there - since
        payment ID's are 64 chars, and base58 encoding is done by encoding
        chunks of 8 chars at once into blocks of 11 chars, we can calculate
        this automatically */
-    public integratedAddressLength: number = 99 + ((64 * 11) / 8);
+    public integratedAddressLength: number = 98 + ((64 * 11) / 8);
 
     /**
      * A replacement function for the JS/C++ underivePublicKey.

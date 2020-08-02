@@ -2,11 +2,8 @@
 //
 // Please see the included LICENSE file for more information.
 
-import { Crypto } from 'nashcash-utils';
 import { CryptoUtils } from './CnUtils';
 import { Config } from './Config';
-
-const TurtleCoinCrypto = new Crypto();
 
 const nullKey = '0'.repeat(64);
 
@@ -20,7 +17,7 @@ export async function generateKeyDerivation(
     }
 
     try {
-        const key = await TurtleCoinCrypto.generateKeyDerivation(
+        const key = await CryptoUtils(config).generateKeyDerivation(
             transactionPublicKey,
             privateViewKey,
         );
@@ -59,8 +56,7 @@ export async function generateKeyImagePrimitive(
             publicSpendKey, privateSpendKey, outputIndex, derivation,
         );
 
-        return [keys.keyImage, keys.privateEphemeral];
-
+        return keys;
     } catch (err) {
         return [nullKey, nullKey];
     }
@@ -93,7 +89,7 @@ export async function underivePublicKey(
     }
 
     try {
-        const key = await TurtleCoinCrypto.underivePublicKey(
+        const key = await CryptoUtils(config).underivePublicKey(
             derivation, outputIndex, outputKey,
         );
 

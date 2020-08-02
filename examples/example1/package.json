@@ -4,6 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "nashcash-wallet-backend": "https://github.com/Nash-Cash/wallet-backend"
+    "turtlecoin-wallet-backend": "https://github.com/turtlecoin/turtlecoin-wallet-backend-js"
   }
 }

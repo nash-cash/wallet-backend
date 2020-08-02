@@ -1,4 +1,4 @@
-const WB = require('nashcash-wallet-backend');
+const WB = require('turtlecoin-wallet-backend');
 const readline = require('readline');
 const util = require('util');
 

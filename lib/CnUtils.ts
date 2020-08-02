@@ -2,7 +2,7 @@
 //
 // Please see the included LICENSE file for more information.
 
-import { CryptoNote } from 'nashcash-utils';
+import { CryptoNote } from 'turtlecoin-utils';
 import { Config } from './Config';
 
 /**
@@ -15,7 +15,7 @@ export function CryptoUtils(config: Config): CryptoNote {
     return new CryptoNote({
         addressPrefix: config.addressPrefix,
         checkRingSignatures: config.checkRingSignatures,
-        cn_fast_hash: config.cnFastHash,
+        cnFastHash: config.cnFastHash,
         coinUnitPlaces: config.decimalPlaces,
         derivePublicKey: config.derivePublicKey,
         deriveSecretKey: config.deriveSecretKey,
