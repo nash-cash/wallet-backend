@@ -1404,6 +1404,19 @@ napi-build-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/napi-build-utils/-/napi-build-utils-1.0.1.tgz#1381a0f92c39d66bf19852e7873432fc2123e508"
   integrity sha512-boQj1WFgQH3v4clhu3mTNfP+vOBxorDlE8EKiMjUlLG3C4qAESnn9AxIOkFgTR2c9LtzNjPrjS60cT27ZKBhaA==
 
+nashcash-utils@2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/nashcash-utils/-/nashcash-utils-2.0.8.tgz#979b0c0bd6029db238eef91debaffb2eab4f339c"
+  integrity sha512-nrmVwFeV/zXQCe3W4b2Xl094UdYOLijPEkJzq6mPV0UUbBUR3X/C/pUjw0a4neb2fkVRt11zH8LaMGAgq26tzQ==
+  dependencies:
+    crc "^3.8.0"
+    get-random-values "^1.2.0"
+    numeral "^2.0.6"
+    secure-random-string "^1.1.0"
+    varint "^5.0.0"
+  optionalDependencies:
+    turtlecoin-crypto "^3.1.3"
+
 neo-async@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
@@ -1710,9 +1723,9 @@ punycode@^2.1.0, punycode@^2.1.1:
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 qs@~6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
-  integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
+  integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
 rc@^1.2.7:
   version "1.2.8"
@@ -2221,19 +2234,6 @@ turtlecoin-crypto@^3.1.3:
     bindings "^1.5.0"
     nan "^2.14.0"
     prebuild-install "^5.3.3"
-
-turtlecoin-utils@1.0.20:
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/turtlecoin-utils/-/turtlecoin-utils-1.0.20.tgz#9a00251009ffaf4939d6e1bc69aec2e0a25a9fd6"
-  integrity sha512-PcTPaNIPNY8yOKvnsMeQ2TZnRmftwFryjC/AW7dWx/qJCCiIOM1p5klPdNmvqk2E9CShPhOT7w7ZjBwz+tLStg==
-  dependencies:
-    crc "^3.8.0"
-    get-random-values "^1.2.0"
-    numeral "^2.0.6"
-    secure-random-string "^1.1.0"
-    varint "^5.0.0"
-  optionalDependencies:
-    turtlecoin-crypto "^3.1.3"
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
